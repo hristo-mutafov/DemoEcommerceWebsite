@@ -1,0 +1,11 @@
+@import url(https://use.fontawesome.com/releases/v5.6.3/css/all.css
+);
+@import url(reset.css);
+@import url(header.css);
+@import url(footer.css);
+@import url(register.css);
+
+
+.disabled {
+    display: none;
+}
