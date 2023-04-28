@@ -3,9 +3,13 @@
 @import url(reset.css);
 @import url(header.css);
 @import url(footer.css);
-@import url(register.css);
+@import url(authentication.css);
 
 
 .disabled {
     display: none;
+}
+
+#main {
+    background-color: #f5f5f7;
 }

@@ -4,7 +4,7 @@
     align-items: center;
     padding:30px 50px;
     background-color: #1d1d1f;
-    color: #f5f5f7;
+    
 }
 
 .header .wrapper {
@@ -13,6 +13,10 @@
 
 .header .logo {
     font-size: 34px;
+}
+.header .logo a {
+    text-decoration: none;
+    color: #f5f5f7;
 }
 
 .header .wrapper .list_item {
