@@ -1,5 +1,6 @@
 {
-  "name": "todo-list",
+  "name": "mysite",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "solve.js",

@@ -59,5 +59,3 @@ class UserProfile(models.Model):
         on_delete=models.CASCADE,
         primary_key=True
     )
-
-    # TODO Add Bank credentials

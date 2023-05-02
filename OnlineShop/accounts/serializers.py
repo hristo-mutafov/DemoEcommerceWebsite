@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
 from OnlineShop.accounts.models import UserProfile
 
@@ -20,7 +20,36 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
     def to_representation(self, instance):
-        token = RefreshToken.for_user(instance)
+        refresh_token = RefreshToken.for_user(instance)
+        access_token = AccessToken.for_user(instance)
         return {
-            'token': str(token)
+            'refresh_token': str(refresh_token),
+            'access_token': str(access_token)
         }
+
+
+class RetrieveUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = ('email',)
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+
+        representation['first_name'] = instance.userprofile.first_name
+        representation['last_name'] = instance.userprofile.last_name
+        return representation
+
+
+class EditUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'gender')
+
+
+class DeleteUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = '__all__'
+
+

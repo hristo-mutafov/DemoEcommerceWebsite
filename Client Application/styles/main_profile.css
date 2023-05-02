@@ -1,0 +1,32 @@
+.profile {
+    padding: 100px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-size: 25px;
+    color: #1d1d1f;
+}
+
+.profile .button_wrapper {
+    display: flex;
+    border: 2px solid #1d1d1f;
+    padding: 30px 50px;
+    width: 50%;
+    margin: 0px auto;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: width 150ms
+
+}
+
+.profile .button_wrapper .lable {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.profile .button_wrapper:hover {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    width: 51%;
+}

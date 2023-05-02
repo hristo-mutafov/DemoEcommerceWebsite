@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../styles/syles.css" />
+        <link rel="stylesheet" href="../../styles/syles.css" />
         <title>Ecommerce | Register</title>
     </head>
     <body>
@@ -12,7 +12,7 @@
             <h1 class="logo"><a href="/">MySite</a></h1>
             <ul role="list" class="wrapper">
                 <li class="list_item">
-                    <a href="pages/register.html"><i class="far fa-user"></i></a>
+                    <a href=""><i class="far fa-user"></i></a>
                 </li>
                 <li class="list_item pointer disabled">
                     <a href=""><i class="far fa-heart"></i></a>
@@ -29,10 +29,11 @@
                 <div class="authentication_wrapper">
                     <h1>Login</h1>
                     <form class="form">
+                        <p id="error_messages"></p>
                         <label for="email_field">Email</label>
                         <input id="email_field" type="text">
                         <label for="password_field">Password</label>
-                        <input id="password_field" type="text">
+                        <input id="password_field" type="password">
                         <button id="login_btn" class="authentication_btn">Login</button>
                     </form>
                 </div>
@@ -57,6 +58,7 @@
                 tempore nihil rerum quos!
             </p>
         </footer>
-        <script src="../functionality/authentication/registerFunc.js"></script>
+        <script src="../../functionality/authentication/secureMesures.js"></script>
+        <script src="../../functionality/authentication/authenticationFunc.js"></script>
     </body>
 </html>
