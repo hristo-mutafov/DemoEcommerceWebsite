@@ -1,6 +1,5 @@
 import isEmpty from '../../modules/formIsEmpty.mjs';
 import parseJwt from '../../modules/getUserId.mjs';
-import getNewTokens from '../../modules/refreshTokens.mjs';
 import checkPassword from '../../modules/checkPassword.mjs';
 
 const userId = parseJwt(localStorage.getItem('access')).user_id;

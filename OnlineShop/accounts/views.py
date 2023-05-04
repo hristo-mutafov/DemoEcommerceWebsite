@@ -43,7 +43,6 @@ class LoginView(views.APIView):
 
 
 class RetrieveUpdateDeleteUserView(generic_views.RetrieveUpdateDestroyAPIView):
-    # TODO Can be used for editing location
     permission_classes = (IsAuthenticated, )
 
     def get_queryset(self):

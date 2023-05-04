@@ -7,7 +7,7 @@ const toProfileSettings = () => {
 };
 
 const toAddressSettings = () => {
-    console.log('here');
+    window.location.href = '../../pages/profile/profile_addresses.html'
 };
 
 const toOrderSettings = () => {

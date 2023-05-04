@@ -97,7 +97,7 @@
     text-align: center;
 }
 
-.profile_settings .edit_panel.active  .field_wrapper {
+.profile_settings .edit_panel.active .field_wrapper {
     display: flex;
     flex-direction: column;
 }
@@ -112,7 +112,7 @@
 }
 
 
-.profile_settings .edit_panel.active  .heading {
+.profile_settings .edit_panel.active .heading {
     font-size: 28px;
     text-align: center;
 }

@@ -39,6 +39,9 @@ class RetrieveUserSerializer(serializers.ModelSerializer):
 
         representation['first_name'] = instance.userprofile.first_name
         representation['last_name'] = instance.userprofile.last_name
+        representation['address'] = instance.userprofile.address
+        representation['city'] = instance.userprofile.city
+        representation['phone_number'] = instance.userprofile.phone_number
         return representation
 
 
@@ -59,11 +62,13 @@ class EditUserSerializer(serializers.ModelSerializer):
 
         profile.first_name = self.initial_data.get('first_name', profile.first_name)
         profile.last_name = self.initial_data.get('last_name', profile.last_name)
+        profile.city = self.initial_data.get('city', profile.city)
+        profile.address = self.initial_data.get('address', profile.address)
+        profile.phone_number = self.initial_data.get('phone_number', profile.phone_number)
         profile.save()
         instance.email = validated_data.get('email', instance.email)
         if 'password' in validated_data:
             instance.password = make_password(validated_data['password'])
-
         instance.save()
 
         return instance
