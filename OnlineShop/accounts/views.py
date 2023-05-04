@@ -1,6 +1,7 @@
 from _ast import Delete
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import check_password
 from django.http import Http404
 from rest_framework import generics as generic_views
 from rest_framework import views
@@ -45,25 +46,29 @@ class RetrieveUpdateDeleteUserView(generic_views.RetrieveUpdateDestroyAPIView):
     # TODO Can be used for editing location
     permission_classes = (IsAuthenticated, )
 
-    get_method_queryset = UserModel.objects.all()
-    patch_method_queryset = UserProfile.objects.all()
-
-    retrieve_serializer_class = RetrieveUserSerializer
-    edit_serializer_class = EditUserSerializer
-    delete_serializer_class = DeleteUserSerializer
-
     def get_queryset(self):
         if self.request.method == 'GET' or self.request.method == 'DELETE':
-            return self.get_method_queryset
+            return UserModel.objects.all()
         if self.request.method == 'PATCH':
-            return self.patch_method_queryset
+            return UserModel.objects.prefetch_related('userprofile')
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
-            return self.retrieve_serializer_class
+            return RetrieveUserSerializer
         if self.request.method == 'PATCH':
-            return self.edit_serializer_class
+            return EditUserSerializer
 
         if self.request.method == 'DELETE':
-            return self.delete_serializer_class
+            return DeleteUserSerializer
 
+
+class ValidatePasswordView(views.APIView):
+    permission_classes = (IsAuthenticated, )
+
+    @staticmethod
+    def post(request, pk):
+        user = UserModel.objects.filter(id=pk).get()
+        if check_password(request.data['password'], user.password):
+            return Response({'message': 'Valid Password'}, 200)
+        else:
+            return Response({'message': 'Wrong Password'}, 400)

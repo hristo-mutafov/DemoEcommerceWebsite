@@ -8,6 +8,11 @@
         <title>Ecommerce | Register</title>
     </head>
     <body>
+        <script
+            type="module"
+            async
+            src="../../functionality/authentication/secureMesures.js"
+        ></script>
         <hedader class="header">
             <h1 class="logo"><a href="/">MySite</a></h1>
             <ul role="list" class="wrapper">
@@ -31,16 +36,23 @@
                     <form class="form">
                         <p id="error_messages"></p>
                         <label for="email_field">Email</label>
-                        <input id="email_field" type="text">
+                        <input id="email_field" type="text" />
                         <label for="password_field">Password</label>
-                        <input id="password_field" type="password">
-                        <label for="repeat_password_field">Repeat Password</label>
-                        <input id="repeat_password_field" type="password">
-                        <button id="register_btn" class="authentication_btn">Register</button>
-                        <p class="login_message">Already have an account? <a href="../../pages/auth/login.html">Login</a> here.</p>
+                        <input id="password_field" type="password" />
+                        <label for="repeat_password_field"
+                            >Repeat Password</label
+                        >
+                        <input id="repeat_password_field" type="password" />
+                        <button id="register_btn" class="authentication_btn">
+                            Register
+                        </button>
+                        <p class="login_message">
+                            Already have an account?
+                            <a href="../../pages/auth/login.html">Login</a>
+                            here.
+                        </p>
                     </form>
                 </div>
-                
             </section>
         </main>
 
@@ -61,7 +73,7 @@
                 tempore nihil rerum quos!
             </p>
         </footer>
-        <script src="../../functionality/authentication/secureMesures.js"></script>
+
         <script src="../../functionality/authentication/authenticationFunc.js"></script>
     </body>
 </html>

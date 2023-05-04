@@ -1,4 +1,6 @@
-
+const myPorfile = () => {
+    window.location.href = '../../pages/profile/profile.html'
+}
 
 const toProfileSettings = () => {
     window.location.href = '../../pages/profile/profile_settings.html'
@@ -25,6 +27,7 @@ window.addEventListener('load', () => {
     }
 })
 
+const currentPage = document.getElementById('my_profile')
 const settingsBtn = document.getElementById('profile_settings');
 const addressBtn = document.getElementById('profile_addresses');
 const ordersBtn = document.getElementById('profile_orders');
@@ -34,3 +37,6 @@ settingsBtn.addEventListener('click', toProfileSettings);
 addressBtn.addEventListener('click', toAddressSettings);
 ordersBtn.addEventListener('click', toOrderSettings);
 logoutBtn.addEventListener('click', logout);
+if (currentPage) {
+    currentPage.addEventListener('click', myPorfile)
+}

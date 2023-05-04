@@ -1,7 +1,9 @@
-const preventAccess = () => {
-    const token = localStorage.getItem('refresh')
-    if (token) {
-        window.location.href = "/";
+import isAuthenticated from '../modules/isAuthenticated.mjs'
+
+const preventAccess = async () => {
+    const authenticated = await isAuthenticated()
+    if (authenticated) {
+        window.location.href = '/'
     }
 }
 

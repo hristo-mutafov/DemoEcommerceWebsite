@@ -8,6 +8,7 @@ export default async function isAuthenticated() {
             body: JSON.stringify({ token: token }),
             headers: { 'Content-Type': 'application/json' },
         });
+        const jsonRes = await fRes.json()
         if (fRes.status === 200) {
             return true;
         }
