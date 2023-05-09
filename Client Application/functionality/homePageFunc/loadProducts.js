@@ -15,7 +15,7 @@ fetch(BASE_URL, {
                 'div',
                 null,
                 main,
-                {'class': 'product'}
+                {'class': 'product', 'id': id}
             )
             
             domFactory(
@@ -46,5 +46,6 @@ fetch(BASE_URL, {
                 {'class': 'price'}
             )
 
+            divWrapper.addEventListener('click', () => window.location.href = `../../pages/product/product.html?product=${divWrapper.id}`)
         }
     })
