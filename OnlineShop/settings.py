@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'rest_framework',
     "corsheaders",
 
-    'OnlineShop.accounts'
+    'OnlineShop.accounts',
+    'OnlineShop.products'
 ]
 
 MIDDLEWARE = [
@@ -113,5 +114,9 @@ USE_TZ = True
 AUTH_USER_MODEL = 'accounts.AppUser'
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = (
+    BASE_DIR / "static_files",
+)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
