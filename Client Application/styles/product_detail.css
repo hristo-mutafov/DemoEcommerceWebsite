@@ -1,6 +1,7 @@
 .product_page {
     max-width: 1920px;
-    margin: 100px auto;
+    margin: 0px auto;
+    padding: 100px 50px;
 }
 
 .product_page > .wrapper:first-child {
@@ -51,6 +52,10 @@
     line-height: 1.8;
 }
 
+.product_page .wrapper .info_section .delivery_info .date_to_delivery {
+    line-height: 1.8;
+}
+
 .product_page .wrapper .info_section .delivery_info .type_delivery .in_stock {
     color: green;
 }
@@ -60,9 +65,10 @@
 }
 
 .product_page .wrapper .info_section .addition_delivery_description {
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid lightgrey;
     padding-bottom: 20px;
-    font-size: 14px;
+    font-size: 12px;
+    color: gray;
 }
 
 .product_page .wrapper .info_section .product_description_label {
@@ -72,22 +78,147 @@
 }
 
 
-.product_page .wrapper .price_section .wrapper {
+.product_page .wrapper .price_section .price_wrapper {
     text-align: center;
+    background-color: rgb(229, 225, 225);
+    padding: 30px 0px;
 } 
 
-.product_page .wrapper .price_section .wrapper .price {
+.product_page .wrapper .price_section .price_wrapper .price {
     position: relative;
 }
 
-.product_page .wrapper .price_section .wrapper .price .whole {
-    font-size: 42px;
+.product_page .wrapper .price_section .price_wrapper .price .whole {
+    font-size: 52px;
     line-height: 36px;
 }
 
-.product_page .wrapper .price_section .wrapper .cents {
+.product_page .wrapper .price_section .price_wrapper .cents {
     font-size: 18px;
     line-height: 18px;
     margin-left: -2px;
     position: absolute;
 }
+
+.product_page .wrapper .price_section .price_wrapper .price_security {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    color: #0071e3be;
+}
+
+
+.product_page .wrapper .price_section .price_wrapper .price_desc {
+    color: gray;
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.product_page .wrapper .price_section .price_wrapper .buy_btn {
+    text-decoration: none;
+    background-color: #0071e3;
+    color: #f5f5f7;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #0071e3;
+    padding:8px 20%;
+    margin-top: 10px;
+}
+
+.product_page .wrapper .price_section .price_wrapper .buy_btn:hover {
+    background-color: #f5f5f7;
+    color: #0071e3;
+}
+
+.product_page .wrapper .price_section .add_to {
+    background-color: rgb(229, 225, 225);
+    margin-top: 5px;
+    padding: 30px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product_page .wrapper .price_section .add_to .add_to_favorites,
+.product_page .wrapper .price_section .add_to .add_opinion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #0071e3;
+    cursor: pointer;
+}
+
+.product_page .wrapper .price_section .add_to .add_to_favorites:hover,
+.product_page .wrapper .price_section .add_to .add_opinion:hover {
+    color: #0050a0;
+}
+
+@media screen and (max-width: 982px) {
+    .product_page > .wrapper:first-child {
+        display: grid;
+        grid-template-columns: 60% 40%;
+        grid-template-areas: 
+        "image desc"
+        "price price";
+        gap: 20px;
+    }
+
+    .product_page .wrapper .image {
+        grid-area: image;
+    }
+
+    .product_page .wrapper .info_section {
+        grid-area: desc;
+    }
+
+    .product_page .wrapper .price_section {
+        grid-area: price;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+    .product_page > .wrapper:first-child {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .product_page > .wrapper:first-child {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-areas: 
+        "image"
+        "desc"
+        "price";
+        gap: 30px;
+    }
+
+    .product_page .wrapper .image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .product_page .wrapper .heading {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 384px) {
+    .product_page {
+        padding: 100px 20px;
+    }
+
+    .product_page > .wrapper:first-child {
+        font-size: 12px;
+    }
+
+    .product_page .wrapper .info_section .addition_delivery_description {
+        font-size: 10px;
+    }
+}
+

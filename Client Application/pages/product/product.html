@@ -8,6 +8,8 @@
         <title>Ecommerce | Product</title>
     </head>
     <body>
+        <script type="module" defer src="../../functionality/homePageFunc/homePageOnLoad.js" ></script>
+        <script type="module" defer src="../../functionality/product/loadData.js" ></script>
         <hedader class="header">
             <h1 class="logo"><a id="logo" href="/">MySite</a></h1>
             <ul role="list" class="wrapper">
@@ -65,7 +67,7 @@
                     </p>
                 </section>
                 <section class="price_section">
-                    <div class="wrapper">
+                    <div class="price_wrapper">
                         <span class="price">
                             <span class="whole">20</span>
                             <span class="cents">
@@ -75,7 +77,27 @@
                                 lv.
                             </span>
                         </span>
-                        
+                        <div class="price_security">
+                            <i class="fas fa-shield-alt"></i>
+                            <p>Price Protection</p>
+                        </div>
+                        <p class="price_desc">
+                            The price includes VAT.
+                        </p>
+                        <button class="btn buy_btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            Buy
+                        </button>
+                    </div>
+                    <div class="add_to">
+                        <div class="add_to_favorites">
+                            <i class="far fa-heart"></i>
+                            <p>Add to favorites</p>
+                        </div>
+                        <div class="add_opinion">
+                            <i class="far fa-comment-alt"></i>
+                            <p>Rate the product</p>
+                        </div>
                     </div>
                 </section>
             </div>

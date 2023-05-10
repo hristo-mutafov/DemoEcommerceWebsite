@@ -7,6 +7,7 @@ from OnlineShop.accounts.models import UserProfile
 
 UserModel = get_user_model()
 
+
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
@@ -49,6 +50,7 @@ class EditProfileUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = '__all__'
+
 
 class EditUserSerializer(serializers.ModelSerializer):
     userprofile = EditProfileUserSerializer()

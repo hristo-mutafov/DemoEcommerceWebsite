@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 
+
 class Category(models.Model):
     NAME_MAX_LEN = 20
 
