@@ -9,7 +9,11 @@ fetch(BASE_URL, {
     .then((res) => res.json())
     .then((data) => {
         for(const product of data) {
-            const {id, image, name, price} = product
+            const {id, image, name, price, added_on} = product
+            const [year, mount, day] = added_on.split('-')
+            const productCreateDate = new Date(year, mount, day)
+            const todayDate = new Date()
+            const diff = productCreateDate.getDate() - todayDate.getDate()
             
             const divWrapper = domFactory(
                 'div',
@@ -17,6 +21,16 @@ fetch(BASE_URL, {
                 main,
                 {'class': 'product', 'id': id}
             )
+            
+            if (Math.abs(diff) < 3) {
+                domFactory(
+                    'p',
+                    'New',
+                    divWrapper,
+                    {'class': 'new_product'}
+                )
+            }
+            
             
             domFactory(
                 'img',

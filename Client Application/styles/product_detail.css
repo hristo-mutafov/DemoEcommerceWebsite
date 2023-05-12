@@ -50,14 +50,19 @@
     display: flex;
     gap: 20px;
     line-height: 1.8;
+    align-items: center;
 }
 
 .product_page .wrapper .info_section .delivery_info .date_to_delivery {
     line-height: 1.8;
 }
 
-.product_page .wrapper .info_section .delivery_info .type_delivery .in_stock {
+.product_page .wrapper .info_section .delivery_info .type_delivery .in_stock.green {
     color: green;
+}
+
+.product_page .wrapper .info_section .delivery_info .type_delivery .in_stock.red {
+    color: red;
 }
 
 .product_page .wrapper .info_section .colored {

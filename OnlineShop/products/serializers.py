@@ -5,7 +5,7 @@ from OnlineShop.products.models import Product, Category
 class ListProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ('id', 'image', 'name', 'price')
+        fields = ('id', 'image', 'name', 'price', 'added_on')
 
 
 class AddProductSerializer(serializers.ModelSerializer):
@@ -18,6 +18,12 @@ class RetrieveProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         exclude = ('id', )
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        obj = Category.objects.filter(id=representation['category']).get()
+        representation['category'] = obj.name
+        return representation
 
 
 class UpdateDeleteProductSerializer(serializers.ModelSerializer):

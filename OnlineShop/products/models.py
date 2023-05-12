@@ -16,6 +16,7 @@ class Product(models.Model):
     NAME_MAX_LEN = 50
     IMAGE_FIELD_MAX_LEN = 100
     MADE_IN_FIELD_MAX_LEN = 50
+    BRAND_MAX_LEN = 30
 
     image = models.URLField(
         max_length=100,
@@ -35,6 +36,12 @@ class Product(models.Model):
     )
 
     quantity = models.IntegerField(
+        null=False,
+        blank=False
+    )
+
+    brand = models.CharField(
+        max_length=BRAND_MAX_LEN,
         null=False,
         blank=False
     )

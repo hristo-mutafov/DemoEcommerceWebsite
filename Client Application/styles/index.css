@@ -17,6 +17,18 @@
     padding:30px 10px;
     color: #1d1d1f;
     cursor: pointer;
+    position: relative;
+}
+
+.index_page .product .new_product {
+    position: absolute;
+    background-color: #1d1d1f;
+    color: #f5f5f7;
+    padding: 4px 8px;
+    font-size: 22px;
+    font-weight: 600;
+    top: 26px;
+    left: 6px;
 }
 
 .index_page .product .image {

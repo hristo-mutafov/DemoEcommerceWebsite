@@ -28,19 +28,21 @@
 
         <main class="product_page" id="main">
             <div class="wrapper">
-                <img src="https://online-shop-django.s3.eu-central-1.amazonaws.com/cdbc0c28-9b8d-4557-b4b5-b382e2f343d5.jpg" alt="" class="image">
+                <img id="rpoductImage" alt="" class="image">
                 <section class="info_section">
-                    <h1 class="heading">T-Shirt Tommy Hugger</h1>
+                    <h1 id="productName" class="heading"></h1>
                     <div class="additional">
                         <p class="brant label">Brand:</p>
-                        <p class="brand">Tommy Hugger</p>
+                        <p id="productBrand" class="brand">Tommy Hugger</p>
                         <p class="category label">Category:</p>
-                        <p class="category">Clothes</p>
+                        <p id="productCategory" class="category"></p>
+                        <p class="made_in label">Made in:</p>
+                        <p id="productMadeIn" class="made_in"></p>
                     </div>
                     <div class="delivery_info">
                         <div class="type_delivery">
-                            <div class="in_stock">
-                                <i class="fas fa-check"></i>
+                            <div id="inStockWrapper" class="in_stock">
+                                <i id="inStockIcon" class="fas fa-check"></i>
                                 <p>In Stock</p>
                             </div>
                             <div class="speed_delivery">
@@ -54,23 +56,22 @@
                         </div>
                         <div class="date_to_delivery">
                             <p>You may have it:</p>
-                            <p>on <span class="colored">11.05.2023</span></p>
-                            <p>from <sapan class="colored">11.05.2023</sapan> to <span class="colored">15.05.2023</span></p>
+                            <p>on <span id="fast_date" class="colored"></span></p>
+                            <p>from <sapan id="normal_date1" class="colored"></sapan> to <span id="normal_date2" class="colored"></span></p>
                         </div>
                     </div>
                     <p class="addition_delivery_description">
                         * The delivery date is approximate and depends on the place of residence and the chosen courier company. You can find out the exact date on which the product will be with you, as well as the final delivery price, when completing the order.
                     </p>
                     <h3 class="product_description_label">Product Description</h3>
-                    <p class="product_description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores rem in expedita ad inventore cupiditate distinctio, iusto officiis totam eligendi iste eveniet facere ullam vitae itaque ea ducimus alias iure.
+                    <p id="productDescription" class="product_description">
                     </p>
                 </section>
                 <section class="price_section">
                     <div class="price_wrapper">
                         <span class="price">
-                            <span class="whole">20</span>
-                            <span class="cents">
+                            <span id="bigPrice" class="whole">20</span>
+                            <span id="smallPrice" class="cents">
                                 ,99
                             </span>
                             <span class="currency">
