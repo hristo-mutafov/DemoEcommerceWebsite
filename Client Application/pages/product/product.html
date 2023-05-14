@@ -8,21 +8,23 @@
         <title>Ecommerce | Product</title>
     </head>
     <body>
-        <script type="module" defer src="../../functionality/homePageFunc/homePageOnLoad.js" ></script>
+        <script type="module" defer src="../../functionality/homePageFunc/homePageOnLoad.js"></script>
         <script type="module" defer src="../../functionality/product/loadData.js" ></script>
+
         <hedader class="header">
             <h1 class="logo"><a id="logo" href="/">MySite</a></h1>
             <ul role="list" class="wrapper">
                 <li class="list_item">
-                    <a href="pages/auth/register.html"><i class="far fa-user"></i></a>
+                    <a href="../../pages/auth/register.html"><i class="far fa-user"></i></a>
                 </li>
                 <li class="list_item disabled">
                     <a href=""><i class="far fa-heart"></i></a>
                 </li>
-                <li class="list_item disabled">
+                <li id="cardListItem" class="list_item disabled">
                     <a href=""><i class="fas fa-shopping-cart"></i></a>
+                    <p id="cartItemsCount"></p>
                 </li>
-                <li class="list_item disabled">0.00</li>
+                <li id="headerPrice" class="list_item disabled">0.00</li>
             </ul>
         </hedader>
 
@@ -33,7 +35,7 @@
                     <h1 id="productName" class="heading"></h1>
                     <div class="additional">
                         <p class="brant label">Brand:</p>
-                        <p id="productBrand" class="brand">Tommy Hugger</p>
+                        <p id="productBrand" class="brand"></p>
                         <p class="category label">Category:</p>
                         <p id="productCategory" class="category"></p>
                         <p class="made_in label">Made in:</p>
@@ -70,9 +72,8 @@
                 <section class="price_section">
                     <div class="price_wrapper">
                         <span class="price">
-                            <span id="bigPrice" class="whole">20</span>
+                            <span id="bigPrice" class="whole"></span>
                             <span id="smallPrice" class="cents">
-                                ,99
                             </span>
                             <span class="currency">
                                 lv.
@@ -85,7 +86,7 @@
                         <p class="price_desc">
                             The price includes VAT.
                         </p>
-                        <button class="btn buy_btn">
+                        <button id="buyBtn" class="btn buy_btn">
                             <i class="fas fa-shopping-cart"></i>
                             Buy
                         </button>

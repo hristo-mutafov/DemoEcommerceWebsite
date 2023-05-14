@@ -1,9 +1,7 @@
-import parseJwt from '../../modules/getUserId.mjs';
 import isEmpty from '../../modules/formIsEmpty.mjs';
 
 // Getting global info
-const userId = parseJwt(localStorage.getItem('access')).user_id;
-const BASE_EDIT_URL = `http://127.0.0.1:8000/user/${userId}`
+const BASE_EDIT_URL = `http://127.0.0.1:8000/user/`
 
 const main = document.getElementById('main')
 // Getting buttons

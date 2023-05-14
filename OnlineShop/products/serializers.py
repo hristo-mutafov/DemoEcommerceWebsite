@@ -17,7 +17,7 @@ class AddProductSerializer(serializers.ModelSerializer):
 class RetrieveProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        exclude = ('id', )
+        fields = '__all__'
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)

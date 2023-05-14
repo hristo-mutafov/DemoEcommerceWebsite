@@ -1,6 +1,5 @@
 import isAuthenticated from '../../modules/isAuthenticated.mjs';
 import getNewTokens from '../../modules/refreshTokens.mjs';
-import parseJwt from '../../modules/getUserId.mjs';
 
 const loadData = async () => {
     const fRes = await fetch(BASE_URL, {
@@ -29,8 +28,7 @@ if (!authenticated) {
     window.location.href = '/';
 }
 
-const userId = parseJwt(localStorage.getItem('access')).user_id;
-const BASE_URL = `http://127.0.0.1:8000/user/${userId}`;
+const BASE_URL = `http://127.0.0.1:8000/user/`;
 
 const cityField = document.getElementById('city_field');
 const addressField = document.getElementById('address_field');

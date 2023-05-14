@@ -1,6 +1,9 @@
+import isAuthenticated from "../../functionality/modules/isAuthenticated.mjs";
+import getNewTokens from "../../functionality/modules/refreshTokens.mjs";
+
 const queryparams = new URLSearchParams(window.location.search);
-const userId = queryparams.get("product");
-const BASE_URL = `http://127.0.0.1:8000/get/product/${userId}`;
+const productId = queryparams.get("product");
+const GET_URL = `http://127.0.0.1:8000/get/product/${productId}`;
 
 // Getting fields
 const imageField = document.getElementById("rpoductImage");
@@ -18,13 +21,24 @@ const normalShipingDates = {
     first: document.getElementById("normal_date1"),
     second: document.getElementById("normal_date2"),
 };
+const buyButton = document.getElementById("buyBtn");
+const headerPrice = document.querySelector(".header .wrapper #headerPrice");
+const cartItemsField = document.querySelector('.header .wrapper #cartItemsCount')
 
-fetch(BASE_URL, {
-    method: "GET",
-})
-    .then((res) => res.json())
-    .then((data) => {
+main();
+
+async function main() {
+    const [productPrice, idProduct] = await loadThePage();
+    const POST_URL = `http://127.0.0.1:8000/cart/add/${idProduct}/`;
+    buyButton.addEventListener("click", addToCart);
+
+    async function loadThePage() {
+        const fRes = await fetch(GET_URL, {
+            method: "GET",
+        });
+        const jsonRes = await fRes.json();
         const {
+            id,
             image,
             name,
             description,
@@ -33,12 +47,14 @@ fetch(BASE_URL, {
             category,
             quantity,
             brand,
-        } = data;
+        } = jsonRes;
+
         imageField.src = image;
         nameField.textContent = name;
         descriptionField.textContent = description;
         madeInField.textContent = made_in;
         const [big, small] = price.split(".");
+        bigPriceField.parentNode.id = price;
         bigPriceField.textContent = big;
         smallPriceField.textContent = `,${small}`;
         categoryField.textContent = category;
@@ -53,10 +69,44 @@ fetch(BASE_URL, {
         fastShippingDate.textContent = getDate(2);
         normalShipingDates.first.textContent = getDate(2);
         normalShipingDates.second.textContent = getDate(4);
-    });
+        return [price, id];
+    }
 
-function getDate(days) {
-    const date = new Date();
-    date.setDate(date.getDate() + days);
-    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+    function getDate(days) {
+        const date = new Date();
+        date.setDate(date.getDate() + days);
+        return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+    }
+
+    async function addToCart() {
+        const isLogin = await isAuthenticated();
+        if (!isLogin) {
+            window.location.href = "../../pages/auth/register.html";
+        }
+        const fRes = await fetch(POST_URL, {
+            method: "PATCH",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("access"),
+            },
+        });
+        if (fRes.status === 401) {
+            getNewTokens(localStorage.getItem("refresh"));
+            return addToCart();
+        }
+        //TODO
+        const totalPrice = (
+            Number(headerPrice.textContent) + Number(productPrice)
+        ).toFixed(2);
+
+        headerPrice.textContent = totalPrice;
+        const cartItems = localStorage.getItem("cartItem")
+        if (!cartItems) {
+            localStorage.setItem("cartItem", 1)
+            cartItemsField.textContent = 1
+        } else {
+            localStorage.setItem("cartItem", Number(cartItems) + 1)
+            cartItemsField.textContent = Number(cartItems) + 1
+        }
+        localStorage.setItem('totalPrice', totalPrice);
+    }
 }

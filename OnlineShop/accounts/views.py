@@ -1,20 +1,18 @@
-from _ast import Delete
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import check_password
 from django.http import Http404
 from rest_framework import generics as generic_views
 from rest_framework import views
-from rest_framework.decorators import permission_classes
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
-from OnlineShop.accounts.models import UserProfile
 from OnlineShop.accounts.serializers import RegisterSerializer, RetrieveUserSerializer, EditUserSerializer, \
     DeleteUserSerializer
+from OnlineShop.core.view_mixins import GetTheUserFromTokenMixin
 
 UserModel = get_user_model()
 
@@ -42,8 +40,9 @@ class LoginView(views.APIView):
             return Response({'message': 'User not found'}, status=404)
 
 
-class RetrieveUpdateDeleteUserView(generic_views.RetrieveUpdateDestroyAPIView):
+class RetrieveUpdateDeleteUserView(GetTheUserFromTokenMixin, generic_views.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, )
+    filter_param = 'id'
 
     def get_queryset(self):
         if self.request.method == 'GET' or self.request.method == 'DELETE':
@@ -61,12 +60,13 @@ class RetrieveUpdateDeleteUserView(generic_views.RetrieveUpdateDestroyAPIView):
             return DeleteUserSerializer
 
 
-class ValidatePasswordView(views.APIView):
+class ValidatePasswordView(GetTheUserFromTokenMixin, views.APIView):
     permission_classes = (IsAuthenticated, )
 
     @staticmethod
-    def post(request, pk):
-        user = UserModel.objects.filter(id=pk).get()
+    def post(request):
+        user_id = GetTheUserFromTokenMixin.get_user_id(request)
+        user = UserModel.objects.filter(id=user_id).get()
         if check_password(request.data['password'], user.password):
             return Response({'message': 'Valid Password'}, 200)
         else:

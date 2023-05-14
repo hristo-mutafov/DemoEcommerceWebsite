@@ -1,9 +1,7 @@
 import isEmpty from "../../modules/formIsEmpty.mjs";
-import parseJwt from "../../modules/getUserId.mjs";
 import checkPassword from "../../modules/checkPassword.mjs";
 
-const userId = parseJwt(localStorage.getItem("access")).user_id;
-const EDIT_URL = `http://127.0.0.1:8000/user/${userId}`;
+const EDIT_URL = `http://127.0.0.1:8000/user/`;
 
 const editNameBnt = document.getElementById("edit_name_btn");
 const editEmailBtn = document.getElementById("edit_email_btn");
@@ -115,7 +113,7 @@ async function saveNewEmail() {
         errorMessage.style.display = "block";
         return;
     }
-    if (!(await checkPassword(inputFields.password.value, userId))) {
+    if (!(await checkPassword(inputFields.password.value))) {
         errorMessage.textContent = "Wrong Password";
         errorMessage.style.display = "block";
         return;
@@ -155,7 +153,7 @@ async function savePassword() {
         errorField.textContent = "Fill the fields";
         errorField.style.display = "block";
         return;
-    } else if (!(await checkPassword(inputFields.oldPass.value, userId))) {
+    } else if (!(await checkPassword(inputFields.oldPass.value))) {
         errorField.textContent = "Incorrect Old Password";
         errorField.style.display = "block";
         return;
