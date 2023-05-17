@@ -8,6 +8,7 @@
 @import url(main_profile.css);
 @import url(profile_settings.css);
 @import url(product_detail.css);
+@import url(cart.css);
 
 
 .disabled {
@@ -16,4 +17,18 @@
 
 html {
     background-color: #f5f5f7;
+}
+
+/* Price Design */
+#priceDesign.price {
+    position: relative;
+}
+
+#priceDesign.price #smallPrice {
+    margin-left: -2px;
+    position: absolute;
+}
+
+#priceDesign.price .currency {
+    color: #0071e3;
 }

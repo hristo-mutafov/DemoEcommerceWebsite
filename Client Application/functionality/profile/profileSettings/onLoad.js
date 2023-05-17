@@ -8,7 +8,7 @@ const loadData = async () => {
     });
     if (fRes.status === 401) {
         await getNewTokens(localStorage.getItem('refresh'));
-        loadData();
+        return loadData();
     } else {
         const jsonRes = await fRes.json();
         if (jsonRes.first_name || jsonRes.last_name) {

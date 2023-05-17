@@ -1,5 +1,6 @@
 import isAuthenticated from "../../functionality/modules/isAuthenticated.mjs";
 import getNewTokens from "../../functionality/modules/refreshTokens.mjs";
+import getDate from '../../functionality/modules/getDate.mjs'
 
 const queryparams = new URLSearchParams(window.location.search);
 const productId = queryparams.get("product");
@@ -54,7 +55,6 @@ async function main() {
         descriptionField.textContent = description;
         madeInField.textContent = made_in;
         const [big, small] = price.split(".");
-        bigPriceField.parentNode.id = price;
         bigPriceField.textContent = big;
         smallPriceField.textContent = `,${small}`;
         categoryField.textContent = category;
@@ -72,12 +72,6 @@ async function main() {
         return [price, id];
     }
 
-    function getDate(days) {
-        const date = new Date();
-        date.setDate(date.getDate() + days);
-        return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
-    }
-
     async function addToCart() {
         const isLogin = await isAuthenticated();
         if (!isLogin) {
@@ -93,7 +87,6 @@ async function main() {
             getNewTokens(localStorage.getItem("refresh"));
             return addToCart();
         }
-        //TODO
         const totalPrice = (
             Number(headerPrice.textContent) + Number(productPrice)
         ).toFixed(2);

@@ -44,7 +44,7 @@
     padding: 0px 40px;
     align-self: center;
     justify-self: center;
-    transition: all 0.4s;
+    transition: all 200ms ease-in-out;
     cursor: pointer;
 }
 
