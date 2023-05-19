@@ -1,6 +1,7 @@
 import getNewTokens from '../../functionality/modules/refreshTokens.mjs';
 import cartProductHtml from '../modules/cartHtmlElement.mjs';
 import getDate from '../../functionality/modules/getDate.mjs';
+import editHeaderCountAndPrice from '../../functionality/modules/editHeaderCountAndPrice.mjs';
 
 const tbody = document.getElementById('tbody');
 const subtotalPriceField = document.querySelector(
@@ -11,10 +12,20 @@ const totalPriceField = document.querySelector(
 );
 const RETRIEVE_PRODUCTS_URL = 'http://127.0.0.1:8000/cart/products/';
 
-window.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('load', async () => {
     await loadProducts();
     const removeBtns = [...document.querySelectorAll('#remove_item_btn')];
+    const decreaseProductCountButtons =
+        document.querySelectorAll('#decrease_btn');
+    const increaseProductCountButtons =
+        document.querySelectorAll('#increase_btn');
     removeBtns.forEach((x) => x.addEventListener('click', removeProduct));
+    decreaseProductCountButtons.forEach((x) => {
+        x.addEventListener('click', decreaseQuantity);
+    });
+    increaseProductCountButtons.forEach((x) => {
+        x.addEventListener('click', increseQuantity);
+    });
 });
 
 async function loadProducts() {
@@ -97,9 +108,74 @@ async function removeProduct() {
         await getNewTokens(localStorage.getItem('refresh'));
         return removeProduct();
     } else {
-        localStorage.setItem('totalPrice', (localStorage.getItem('totalPrice') - productPrice * productCount).toFixed(2))
-        localStorage.setItem('cartItem', localStorage.getItem('cartItem') - productCount);
+        localStorage.setItem(
+            'totalPrice',
+            (
+                localStorage.getItem('totalPrice') -
+                productPrice * productCount
+            ).toFixed(2)
+        );
+        localStorage.setItem(
+            'cartItem',
+            localStorage.getItem('cartItem') - productCount
+        );
         window.location.reload();
     }
+}
 
+async function decreaseQuantity() {
+    const countField = this.parentNode.querySelector('.product_count');
+    if (countField.textContent !== '1') {
+        const parentTr = this.parentNode.parentNode.parentNode;
+        const productId = parentTr.id;
+        const DECREASE_PRODUCT_QUANTITY_URL = `http://127.0.0.1:8000/cart/substract/${productId}/`;
+        const fRes = await fetch(DECREASE_PRODUCT_QUANTITY_URL, {
+            method: 'PATCH',
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('access'),
+            },
+        });
+        if (fRes.status === 401) {
+            await getNewTokens(localStorage.getItem('refresh'));
+            return decreaseQuantity();
+        }
+        const productPrice =
+            Number(
+                parentTr.querySelector('#single_price_sec #bigPrice')
+                    .textContent
+            ) +
+            Number(
+                '0.' +
+                    parentTr.querySelector('#single_price_sec #smallPrice')
+                        .textContent
+            );
+        editHeaderCountAndPrice(productPrice, true)
+        window.location.reload();
+    }
+}
+
+async function increseQuantity() {
+    const parentTr = this.parentNode.parentNode.parentNode;
+    const productId = parentTr.id;
+    const DECREASE_PRODUCT_QUANTITY_URL = `http://127.0.0.1:8000/cart/add/${productId}/`;
+    const fRes = await fetch(DECREASE_PRODUCT_QUANTITY_URL, {
+        method: 'PATCH',
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('access') },
+    });
+    if (fRes.status === 401) {
+        await getNewTokens(localStorage.getItem('refresh'));
+        return increseQuantity();
+    }
+    const productPrice =
+        Number(
+            parentTr.querySelector('#single_price_sec #bigPrice')
+                .textContent
+        ) +
+        Number(
+            '0.' +
+                parentTr.querySelector('#single_price_sec #smallPrice')
+                    .textContent
+        );
+    editHeaderCountAndPrice(productPrice,)
+    window.location.reload();
 }
