@@ -4,6 +4,8 @@ import getDate from '../../functionality/modules/getDate.mjs';
 import editHeaderCountAndPrice from '../../functionality/modules/editHeaderCountAndPrice.mjs';
 
 const tbody = document.getElementById('tbody');
+const emptyCartSection = document.querySelector('#main.cart_page .empty_cart')
+const cartSection = document.querySelector('#main.cart_page .main_section')
 const subtotalPriceField = document.querySelector(
     '.price_menu .subtotal_price_wrapper .subtotal'
 );
@@ -78,6 +80,11 @@ async function loadProducts() {
 
         TOTAL_PRICE += Number(price) * Number(productCount);
     }
+    if (!jsonRes.length) {
+        emptyCartSection.classList.add('active')
+        cartSection.classList.add('disabled')
+    }
+
     subtotalPriceField.textContent =
         totalPriceField.textContent = `${TOTAL_PRICE}lv.`;
 }

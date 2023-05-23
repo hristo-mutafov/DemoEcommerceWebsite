@@ -1,4 +1,8 @@
-#main.cart_page {
+#main.cart_page .main_section.disabled {
+    display: none
+}
+
+#main.cart_page .main_section {
     max-width: 1920px;
     padding: 100px 50px;
     display: grid;
@@ -145,15 +149,53 @@
     background-color: #00458b;
 }
 
+#main.cart_page .empty_cart {
+    display: none;
+}
+
+#main.cart_page .empty_cart.active {
+    padding:100px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#main.cart_page .empty_cart.active #empty_cart_heading {
+    color: #1d1d1f;
+    font-size: 40px;
+}
+
+#main.cart_page .empty_cart.active #empty_cart_desc {
+    color: #1d1d1f;
+    font-size: 20px;
+}
+
+#main.cart_page .empty_cart.active #empty_cart_refirect_button {
+    background-color: #0071e3;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    color: #f5f5f7;
+    padding: 8px 30px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 250ms;
+}
+
+#main.cart_page .empty_cart.active #empty_cart_refirect_button:hover {
+    background-color: #00458b;
+}
+
 @media screen and (max-width: 1040px) {
-    #main.cart_page {
+    #main.cart_page .main_section {
         grid-template-columns: 100%;
         grid-template-rows: 70% 30%;
     }
 }
 
 @media screen and (max-width: 800px) {
-    #main.cart_page {
+    #main.cart_page .main_section {
         padding: 50px 10px;
     }
 
@@ -209,4 +251,38 @@
         right: 10px;
     }
 
+}
+
+@media screen and (max-width: 560px) {
+    #main.cart_page .empty_cart.active #empty_cart_heading {
+        font-size: 24px;
+    }
+
+    #main.cart_page .empty_cart.active #empty_cart_desc {
+        font-size: 12px;
+    }
+
+    #main.cart_page .empty_cart.active #empty_cart_refirect_button {
+        padding: 4px 10px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 387px) {
+    #main.cart_page .empty_cart.active {
+        padding:100px 20px;
+    }
+
+    #main.cart_page .empty_cart.active #empty_cart_heading {
+        font-size: 18px;
+    }
+
+    #main.cart_page .empty_cart.active #empty_cart_desc {
+        font-size: 10px;
+    }
+
+    #main.cart_page .empty_cart.active #empty_cart_refirect_button {
+        padding: 4px 10px;
+        font-size: 10px;
+    }
 }

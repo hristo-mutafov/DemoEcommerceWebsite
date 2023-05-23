@@ -35,6 +35,12 @@
     object-fit: cover;
 }
 
+.index_page .product .data_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .index_page .product .heading {
     font-size: 22px;
     
@@ -42,6 +48,15 @@
 
 .index_page .product .price {
     font-size: 18px;
+}
+
+.index_page .product #icon {
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.index_page .product #icon:hover {
+    color: #0071e3;
 }
 
 .index_page .product:hover {

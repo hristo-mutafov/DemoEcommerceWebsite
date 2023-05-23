@@ -5,6 +5,7 @@ from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
 from OnlineShop.accounts.models import UserProfile
 from OnlineShop.cart.models import Cart
+from OnlineShop.favorites.models import Favorites
 
 UserModel = get_user_model()
 
@@ -19,6 +20,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data.get('password'))
         UserProfile.objects.create(user=user)
         Cart.objects.create(user=user)
+        Favorites.objects.create(user=user)
         user.save()
 
         return user

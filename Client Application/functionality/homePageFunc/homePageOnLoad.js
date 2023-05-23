@@ -20,6 +20,7 @@ async function loadAuthenticatedHome(path) {
         if (Number(localStorage.getItem('cartItem')) > 0) {
             cartCountField.textContent = localStorage.getItem('cartItem');
         }
+        listItems[2].children[0].href = '../../pages/cart/cart_page.html'
         currentPriceField.textContent = localStorage.getItem('totalPrice');
     }
 }

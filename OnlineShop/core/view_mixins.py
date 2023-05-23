@@ -4,7 +4,7 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 
 
 class GetTheUserFromTokenMixin:
-    filter_param = ''
+    filter_param = 'user'
 
     def get_object(self, queryset=None):
         user_id = self.get_user_id(self.request)

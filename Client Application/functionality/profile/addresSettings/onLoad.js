@@ -1,7 +1,16 @@
-import isAuthenticated from '../../modules/isAuthenticated.mjs';
 import getNewTokens from '../../modules/refreshTokens.mjs';
 
-const loadData = async () => {
+
+const BASE_URL = `http://127.0.0.1:8000/user/`;
+
+const cityField = document.getElementById('city_field');
+const addressField = document.getElementById('address_field');
+const phoneNumberField = document.getElementById('phone_number_field');
+
+window.addEventListener('load', loadData);
+
+
+async function loadData() {
     const fRes = await fetch(BASE_URL, {
         method: 'GET',
         headers: { Authorization: `Bearer ${localStorage.getItem('access')}` },
@@ -22,16 +31,3 @@ const loadData = async () => {
         }
     }
 };
-
-const authenticated = await isAuthenticated();
-if (!authenticated) {
-    window.location.href = '/';
-}
-
-const BASE_URL = `http://127.0.0.1:8000/user/`;
-
-const cityField = document.getElementById('city_field');
-const addressField = document.getElementById('address_field');
-const phoneNumberField = document.getElementById('phone_number_field');
-
-window.addEventListener('load', loadData);

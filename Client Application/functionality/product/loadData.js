@@ -25,6 +25,8 @@ const normalShipingDates = {
 const buyButton = document.getElementById("buyBtn");
 const headerPrice = document.querySelector(".header .wrapper #headerPrice");
 const cartItemsField = document.querySelector('.header .wrapper #cartItemsCount')
+const heartIcon = document.querySelector('.product_page .price_section .add_to_favorites i')
+const addToFavoriteWrapper = document.querySelector('.product_page .price_section .add_to_favorites')
 
 main();
 
@@ -34,9 +36,22 @@ async function main() {
     buyButton.addEventListener("click", addToCart);
 
     async function loadThePage() {
+        const requestHeaders = {}
+        const token = localStorage.getItem("access")
+        if (token) {
+            requestHeaders.Authorization = `Bearer ${token}`
+        }
+
         const fRes = await fetch(GET_URL, {
             method: "GET",
+            headers: requestHeaders
         });
+
+        if (fRes.status !== 200) {
+            await getNewTokens(localStorage.getItem("refresh"))
+            return loadThePage()
+        }
+
         const jsonRes = await fRes.json();
         const {
             id,
@@ -48,6 +63,7 @@ async function main() {
             category,
             quantity,
             brand,
+            in_favorites
         } = jsonRes;
 
         imageField.src = image;
@@ -65,10 +81,19 @@ async function main() {
         } else {
             inStockWrapper.classList.add("red");
             insStockIcon.className = "fas fa-times";
+            buyButton.disabled = true
         }
         fastShippingDate.textContent = getDate(2);
         normalShipingDates.first.textContent = getDate(2);
         normalShipingDates.second.textContent = getDate(4);
+
+        if (in_favorites) {
+            heartIcon.classList = 'fas fa-heart'
+        }
+
+        addToFavoriteWrapper.addEventListener('click', async() => {
+            await editFavoriteList(id, token, in_favorites, requestHeaders)
+        })
         return [price, id];
     }
 
@@ -101,5 +126,37 @@ async function main() {
             cartItemsField.textContent = Number(cartItems) + 1
         }
         localStorage.setItem('totalPrice', totalPrice);
+    }
+
+    async function editFavoriteList(id, token, in_favorites, requestHeaders) {
+        if (token) {
+            let request;
+            if (in_favorites) {
+                request = await fetch(
+                    `http://127.0.0.1:8000/favorites/remove/${id}/`,
+                    {
+                        method: 'PATCH',
+                        headers: requestHeaders,
+                    }
+                );
+                window.location.reload()
+            } else {
+                request = await fetch(
+                    `http://127.0.0.1:8000/favorites/add/${id}/`,
+                    {
+                        method: 'PATCH',
+                        headers: requestHeaders,
+                    }
+                );
+                window.location.reload()
+            }
+
+            if (request.status !== 200) {
+                getNewTokens(localStorage.getItem('refresh'));
+                return addEventListener.click();
+            }
+        } else {
+            window.location = '../../pages/auth/register.html';
+        }
     }
 }

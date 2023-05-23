@@ -1,65 +1,109 @@
-import domFactory from '../modules/domConstructor.mjs'
+import domFactory from '../modules/domConstructor.mjs';
+import getNewTokens from '../modules/refreshTokens.mjs';
 
-const main = document.querySelector('#main.index_page')
-const BASE_URL = 'http://127.0.0.1:8000/products/'
+const main = document.querySelector('#main.index_page');
+const BASE_URL = 'http://127.0.0.1:8000/products/';
+const token = localStorage.getItem('access');
+const requestHeaders = {};
+if (token) {
+    requestHeaders.Authorization = `Bearer ${token}`;
+}
 
 fetch(BASE_URL, {
     method: 'GET',
+    headers: requestHeaders,
 })
+    .then((res) => {
+        if (res.status === 401) {
+            getNewTokens(localStorage.getItem('refresh'));
+            window.location.reload();
+        }
+        return res;
+    })
     .then((res) => res.json())
     .then((data) => {
-        for(const product of data) {
-            const {id, image, name, price, added_on} = product
-            const [year, mount, day] = added_on.split('-')
-            const productCreateDate = new Date(year, mount, day)
-            const todayDate = new Date()
-            const diff = productCreateDate.getDate() - todayDate.getDate()
-            
-            const divWrapper = domFactory(
-                'div',
-                null,
-                main,
-                {'class': 'product', 'id': id}
-            )
-            
+        for (const product of data) {
+            const { id, image, name, price, added_on, in_favorites } = product;
+            const [year, mount, day] = added_on.split('-');
+            const productCreateDate = new Date(year, mount, day);
+            const todayDate = new Date();
+            const diff = productCreateDate.getDate() - todayDate.getDate();
+
+            const divWrapper = domFactory('div', null, main, {
+                class: 'product',
+                id: id,
+            });
+
             if (Math.abs(diff) < 3) {
-                domFactory(
-                    'p',
-                    'New',
-                    divWrapper,
-                    {'class': 'new_product'}
-                )
+                domFactory('p', 'New', divWrapper, { class: 'new_product' });
             }
-            
-            
-            domFactory(
-                'img',
-                null,
-                divWrapper,
-                {'class': 'image', 'src': image}
-            )
+
+            domFactory('img', null, divWrapper, { class: 'image', src: image });
+
+            const data_section_container = domFactory('div', null, divWrapper, {
+                class: 'data_section',
+            });
 
             const textContainer = domFactory(
                 'div',
                 null,
-                divWrapper,
-                {'class': 'text_container'}
-            )
-            
-            domFactory(
-                'h3',
-                name,
-                textContainer,
-                {'class': 'heading'}
-            )
+                data_section_container,
+                { class: 'text_container' }
+            );
 
-            domFactory(
-                'p',
-                `${price}lv`,
-                textContainer,
-                {'class': 'price'}
-            )
+            domFactory('h3', name, textContainer, { class: 'heading' });
 
-            divWrapper.addEventListener('click', () => window.location.href = `../../pages/product/product.html?product=${divWrapper.id}`)
+            domFactory('p', `${price}lv`, textContainer, { class: 'price' });
+
+            const heartIcon = domFactory('i', null, data_section_container, {
+                id: 'icon',
+            });
+
+            if (in_favorites) {
+                heartIcon.classList = 'fas fa-heart';
+            } else {
+                heartIcon.classList = 'far fa-heart';
+            }
+
+
+            divWrapper.addEventListener(
+                'click', async(e) => {
+                    if (e.target.classList.contains('fa-heart')) {
+                        if (token) {
+                            let request;
+                            if (in_favorites) {
+                                request = await fetch(
+                                    `http://127.0.0.1:8000/favorites/remove/${divWrapper.id}/`,
+                                    {
+                                        method: 'PATCH',
+                                        headers: requestHeaders,
+                                    }
+                                );
+                                window.location.reload()
+                            } else {
+                                request = await fetch(
+                                    `http://127.0.0.1:8000/favorites/add/${divWrapper.id}/`,
+                                    {
+                                        method: 'PATCH',
+                                        headers: requestHeaders,
+                                    }
+                                );
+                                window.location.reload()
+                            }
+        
+                            if (request.status !== 200) {
+                                getNewTokens(localStorage.getItem('refresh'));
+                                return addEventListener.click();
+                            }
+                        } else {
+                            window.location = '../../pages/auth/register.html';
+                        }
+                    } else {
+                        window.location.href = `../../pages/product/product.html?product=${divWrapper.id}`
+                    }
+                }
+            )
         }
-    })
+
+        
+    });

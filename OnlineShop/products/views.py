@@ -6,7 +6,10 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import generics as generics_views
 from OnlineShop.core.base64_to_img import upload_photo
+from OnlineShop.core.view_mixins import GetTheUserFromTokenMixin
+from OnlineShop.favorites.models import Favorites
 from OnlineShop.integrations.s3 import s3
+from django.shortcuts import get_object_or_404
 
 from OnlineShop.products.models import Product, Category
 from OnlineShop.products.serializers import ListProductsSerializer, AddProductSerializer, RetrieveProductSerializer, \
@@ -14,13 +17,29 @@ from OnlineShop.products.serializers import ListProductsSerializer, AddProductSe
 from OnlineShop.settings import STATICFILES_DIRS
 
 
-class ListCreateProductsView(generics_views.ListCreateAPIView):
+class ListCreateProductsView(GetTheUserFromTokenMixin, generics_views.ListCreateAPIView):
     queryset = Product.objects.all()
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return ListProductsSerializer
         return AddProductSerializer
+
+    def list(self, request, *args, **kwargs):
+        token = request.headers.get('authorization', None)
+        queryset = self.queryset.all()
+        if token:
+            user_id = GetTheUserFromTokenMixin.get_user_id(request)
+            for product in queryset:
+                user_favorite_list = get_object_or_404(Favorites, user=user_id)
+                if product in user_favorite_list.products.all():
+                    product.in_favorites = True
+                else:
+                    product.in_favorites = False
+                product.save()
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
 
@@ -40,9 +59,26 @@ class ListCreateProductsView(generics_views.ListCreateAPIView):
         return Response({'message': 'Bad Request', 'details': serializer.errors}, 400)
 
 
-class RetrieveProductView(generics_views.RetrieveUpdateAPIView):
+class RetrieveProductView(GetTheUserFromTokenMixin, generics_views.RetrieveUpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = RetrieveProductSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        token = request.headers.get('authorization', None)
+        queryset = self.queryset.all()
+        product_pk = kwargs['pk']
+        product = queryset.filter(id=product_pk).get()
+        if token:
+            user_id = GetTheUserFromTokenMixin.get_user_id(request)
+            user_favorite_list = get_object_or_404(Favorites, user=user_id)
+            if product in user_favorite_list.products.all():
+                product.in_favorites = True
+            else:
+                product.in_favorites = False
+            product.save()
+
+        serializer = self.get_serializer(product)
+        return Response(serializer.data)
 
 
 class UpdateDeleteProductsView(generics_views.RetrieveUpdateDestroyAPIView):
