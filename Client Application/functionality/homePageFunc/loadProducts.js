@@ -1,8 +1,10 @@
 import domFactory from '../modules/domConstructor.mjs';
 import getNewTokens from '../modules/refreshTokens.mjs';
 
-const main = document.querySelector('#main.index_page');
-const BASE_URL = 'http://127.0.0.1:8000/products/';
+const main = document.querySelector('#main.index_page .products_wrapper');
+
+
+const BASE_URL = `http://127.0.0.1:8000/products/${window.location.search}`;
 const token = localStorage.getItem('access');
 const requestHeaders = {};
 if (token) {
@@ -22,6 +24,14 @@ fetch(BASE_URL, {
     })
     .then((res) => res.json())
     .then((data) => {
+        if (!data.length) {
+            domFactory(
+                'h1',
+                'There are no products added here yet.',
+                document.querySelector('#main.index_page'),
+                {'class': 'emptyPageMassage'}
+            )
+        }
         for (const product of data) {
             const { id, image, name, price, added_on, in_favorites } = product;
             const [year, mount, day] = added_on.split('-');

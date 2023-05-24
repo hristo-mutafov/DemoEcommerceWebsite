@@ -1,4 +1,5 @@
 .authentication {
+    margin: 50px 30px;
     max-height: 620px;
     height: 70vh;
     display: flex;
@@ -55,4 +56,38 @@
 .authentication .form .login_message {
     color: #1d1d1f;
     font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+    .authentication .authentication_wrapper {
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 582px) {
+    .authentication {
+        margin: 0px;
+    }
+
+    /* .authentication .authentication_wrapper {
+        padding: 10px;
+    } */
+
+    .authentication h1 {
+        font-size: 26px;
+    }
+
+    .authentication .form .authentication_btn {
+        margin-top: 10px;
+        padding:10px 20px;
+        font-size: 14px;
+    }
+
+    .authentication .form .login_message {
+        font-size: 14px;
+    }
+
+    .authentication .form {
+        font-size: 14px;
+    }
 }

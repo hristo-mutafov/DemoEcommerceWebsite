@@ -37,7 +37,9 @@ class ListCreateProductsView(GetTheUserFromTokenMixin, generics_views.ListCreate
                 else:
                     product.in_favorites = False
                 product.save()
-
+            query_favorites_only = request.GET.get('favorites', None)
+            if query_favorites_only:
+                queryset = [x for x in queryset if x.in_favorites]
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
