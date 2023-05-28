@@ -14,7 +14,6 @@ async function loadAuthenticatedHome(path) {
             document.querySelectorAll('.header .list_item')
         );
         listItems.forEach((item) => item.classList.remove('disabled'));
-        console.log(listItems);
         listItems[0].querySelector('a').href =
             '../../pages/profile/profile.html';
         
@@ -31,7 +30,6 @@ async function loadAuthenticatedHome(path) {
             cartCountField.textContent = localStorage.getItem('cartItem');
         }
         listItems[2].children[0].href = '../../pages/cart/cart_page.html'
-        listItems[6].children[0].href = '../../pages/cart/cart_page.html'
         currentPriceField.textContent = localStorage.getItem('totalPrice');
     }
 

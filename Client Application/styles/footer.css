@@ -1,4 +1,4 @@
-footer {
+.footer {
     background-color: #1d1d1f;
 }
 
@@ -13,7 +13,7 @@ footer {
 }
 
 @media screen and (max-width: 690px) {
-    .footer {
+    .footer .wrapper {
         grid-template-columns: 100%;
         grid-template-rows: repeat(3, 1fr);
     }

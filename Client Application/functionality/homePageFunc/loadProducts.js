@@ -3,7 +3,6 @@ import getNewTokens from '../modules/refreshTokens.mjs';
 
 const main = document.querySelector('#main.index_page .products_wrapper');
 
-
 const BASE_URL = `http://127.0.0.1:8000/products/${window.location.search}`;
 const token = localStorage.getItem('access');
 const requestHeaders = {};

@@ -88,3 +88,5 @@ target/
 __pycache__/
 local_settings.py
 
+Client Application/config.json
+

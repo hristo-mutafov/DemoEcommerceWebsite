@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'OnlineShop.products',
     'OnlineShop.cart',
     'OnlineShop.favorites',
+    'OnlineShop.orders'
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,6 @@ STATICFILES_DIRS = (
 )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = env('STRIPE_PUBLISHABLE_KEY')

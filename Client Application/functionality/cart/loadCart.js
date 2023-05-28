@@ -12,10 +12,14 @@ const subtotalPriceField = document.querySelector(
 const totalPriceField = document.querySelector(
     '.price_menu .total_price_wrapper .total'
 );
+const orderButton = document.getElementById('go_to_finish_btn')
 const RETRIEVE_PRODUCTS_URL = 'http://127.0.0.1:8000/cart/products/';
 
 window.addEventListener('load', async () => {
     await loadProducts();
+    orderButton.addEventListener('click', () => {
+        window.location.href = '../../pages/order/order.html'
+    })
     const removeBtns = [...document.querySelectorAll('#remove_item_btn')];
     const decreaseProductCountButtons =
         document.querySelectorAll('#decrease_btn');

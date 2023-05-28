@@ -187,6 +187,10 @@
     background-color: #00458b;
 }
 
+.wrong {
+    border-color: red;
+}
+
 @media screen and (max-width: 1040px) {
     #main.cart_page .main_section {
         grid-template-columns: 100%;
