@@ -164,6 +164,7 @@
 #main.cart_page .empty_cart.active #empty_cart_heading {
     color: #1d1d1f;
     font-size: 40px;
+    text-align: center;
 }
 
 #main.cart_page .empty_cart.active #empty_cart_desc {

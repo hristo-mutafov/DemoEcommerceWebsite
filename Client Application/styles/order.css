@@ -111,6 +111,50 @@
     background-color: #00458b;
 }
 
+.additional .method .error_message {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}
+
+.finished_order_page#main {
+    padding:100px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.finished_order_page#main h1 {
+    color: #1d1d1f;
+    font-size: 40px;
+    align-self: center;
+}
+
+
+.finished_order_page#main a {
+    background-color: #0071e3;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    color: #f5f5f7;
+    padding: 8px 30px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 250ms;
+}
+
+.finished_order_page#main a:hover {
+    background-color: #00458b;
+}
+
+#cardInfoWrapper.data {
+    padding:20px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 
 
 @media screen and (max-width: 800px) {
@@ -130,11 +174,45 @@
     }
 }
 
+/*  */
+
+@media screen and (max-width: 640px) {
+    .finished_order_page#main h1 {
+        font-size: 24px;
+    }
+
+    .finished_order_page#main a {
+        padding: 4px 10px;
+        font-size: 12px;
+    }
+}
+
+
 @media screen and (max-width: 538px) {
     .order_page {
         padding: 30px 20px;
     }
+
+    #cardInfoWrapper.data {
+        padding: 0px;
+    }
     
+}
+
+/*  */
+@media screen and (max-width: 434px) {
+    .finished_order_page#main {
+        padding:100px 20px;
+    }
+
+    .finished_order_page#main h1 {
+        font-size: 18px;
+    }
+
+    .finished_order_page#main a {
+        padding: 4px 10px;
+        font-size: 10px;
+    }
 }
 
 @media screen and (max-width: 367px) {
@@ -143,3 +221,5 @@
     }
     
 }
+
+

@@ -5,12 +5,16 @@ const nameInputs = document.getElementById('name_field')
 const phoneNumberField = document.getElementById('phone_field')
 const addressInput = document.getElementById('address_field')
 const priceFileds = Array.from(document.querySelectorAll('.method #price'))
+const priceWrapper = document.querySelector('#cardInfoWrapper.data')
+let cardElement;
+let stripe;
 window.addEventListener('load', onLoad);
 
 async function onLoad() {
     fillDates();
     await fillInputs();
     fillPrices()
+    await stipeInit()
 }
 
 function fillDates() {
@@ -54,3 +58,17 @@ function fillPrices() {
         field.textContent = `${localStorage.getItem('totalPrice')}lv`
     }
 }
+
+async function stipeInit() {
+    const fetchKey = await fetch('../../config.json');
+    const fetchKetJson = await fetchKey.json();
+    const key = fetchKetJson.STRIPE_PUBLISHABLE_KEY;
+
+    stripe = Stripe(key);
+    const elements = stripe.elements();
+    cardElement = elements.create('card');
+    cardElement.mount('#cardInfoWrapper.data');
+    priceWrapper.style.display = 'none'
+}
+
+export { stripe, cardElement }
