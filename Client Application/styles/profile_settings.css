@@ -38,6 +38,25 @@
     font-size: 20px;
 }
 
+.profile_settings .settings .credentials .list_item .order_data {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile_settings .settings .credentials .list_item .order_data .field_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.profile_settings .settings .credentials .list_item .order_data .field_wrapper .field_label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 .profile_settings .btn {
     background-color: transparent;
     height: 40px;
@@ -67,6 +86,7 @@
 
 .profile_settings .settings .profile_delete .wrapper .text {
     color: #f85149;
+    text-align: center;
 }
 
 .profile_settings .settings .profile_delete .btn:hover {
@@ -139,7 +159,23 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 632px) {
+    .profile_settings .settings .credentials .list_item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .profile_settings .btn {
+        align-self: center;
+        justify-self: center;
+        width: 100%;
+    }
+
+    .profile_settings .settings .profile_delete .wrapper {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 500px) {
     .profile_settings .settings .credentials .list_item .data {
         gap: 20px;
         font-size: 16px;
@@ -148,94 +184,36 @@
     .profile_settings .settings .btn {
         height: 32px;
         padding: 0px 30px;
-    }
-}
-
-@media screen and (max-width: 518px) {
-    .profile_settings .settings .credentials .list_item .data {
-        gap: 10px;
         font-size: 14px;
     }
-
-    .profile_settings .settings .btn {
-        height: 28px;
-        padding: 0px 22px;
-    }
-
-    .profile_settings .settings .profile_delete .wrapper .text {
-        font-size: 14px;
-    }
-}
-
-@media screen and (max-width: 490px) {
-    .profile_settings {
-        padding: 20px 10px;
-    }
-
-    .profile_settings .settings .credentials .list_item {
-        padding: 10px 20px;
-    }
-
-    .profile_settings .settings .credentials .list_item .data {
-        gap: 10px;
-        font-size: 12px;
-    }
-
-    .profile_settings .settings .btn {
-        height: 28px;
-        padding: 0px 22px;
-        font-size: 12px;
-    }
-
-    .profile_settings .settings .profile_delete .wrapper .text {
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 364px) {
 
     .profile_settings .settings .credentials .list_item .data i {
         font-size: 18px;
     }
 
+    .profile_settings .settings .credentials .list_item .order_data .field_wrapper {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 395px) {
     .profile_settings .settings .credentials .list_item .data {
-        gap: 5px;
-        font-size: 10px;
+        gap: 10px;
+        font-size: 12px;
     }
 
     .profile_settings .settings .btn {
         height: 20px;
-        padding: 0px 16px;
-    }
-
-    .profile_settings .settings .profile_delete .wrapper .text {
+        padding: 0px 24px;
         font-size: 12px;
     }
-}
-
-@media screen and (max-width: 310px) {
-
-    .profile_settings .btn i {
-        display: none;
-    }
-
 
     .profile_settings .settings .credentials .list_item .data i {
         font-size: 16px;
     }
 
-    .profile_settings .settings .credentials .list_item .data {
-        gap: 5px;
-        font-size: 10px;
+    .profile_settings .settings .credentials .list_item .order_data .field_wrapper {
+        font-size: 12px;
     }
 
-    .profile_settings .settings .btn {
-        height: 16px;
-        padding: 0px 5px;
-        font-size: 10px;
-    }
-
-    .profile_settings .settings .profile_delete .wrapper .text {
-        font-size: 10px;
-    }
 }

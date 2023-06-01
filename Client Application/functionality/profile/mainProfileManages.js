@@ -11,7 +11,7 @@ const toAddressSettings = () => {
 };
 
 const toOrderSettings = () => {
-    console.log('here');
+    window.location.href = '../../pages/profile/profile_orders.html'
 };
 
 const logout = () => {

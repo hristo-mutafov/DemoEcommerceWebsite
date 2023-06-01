@@ -102,7 +102,7 @@ fetch(BASE_URL, {
         
                             if (request.status !== 200) {
                                 getNewTokens(localStorage.getItem('refresh'));
-                                return addEventListener.click();
+                                return divWrapper.click();
                             }
                         } else {
                             window.location = '../../pages/auth/register.html';

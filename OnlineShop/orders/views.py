@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from OnlineShop.cart.models import Cart
 from OnlineShop.core.view_mixins import GetTheUserFromTokenMixin
 from OnlineShop.orders.models import Order
-from OnlineShop.orders.serializers import CreateOrderSerializer
+from OnlineShop.orders.serializers import CreateOrderSerializer, ListShortOrdersSerializer
 from OnlineShop.settings import STRIPE_SECRET_KEY
 
 UserModel = get_user_model()
@@ -58,3 +58,11 @@ class ProceedPayment(GetTheUserFromTokenMixin, views.APIView):
         )
         client_secret = payment.client_secret
         return Response({'client_secret': client_secret})
+
+
+class RetrieveShortOrdersView(GetTheUserFromTokenMixin, generics_views.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = ListShortOrdersSerializer
+    permission_classes = (IsAuthenticated, )
+
+
