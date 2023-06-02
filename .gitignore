@@ -1,6 +1,8 @@
 OnlineShop/.env
 Client Application/node_modules
-
+.idea
+.vscode
+.vscode/settings.json
 # Created by https://www.gitignore.io
 
 ### OSX ###
