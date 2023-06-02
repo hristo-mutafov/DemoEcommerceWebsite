@@ -10,7 +10,8 @@ from rest_framework.response import Response
 from OnlineShop.cart.models import Cart
 from OnlineShop.core.view_mixins import GetTheUserFromTokenMixin
 from OnlineShop.orders.models import Order
-from OnlineShop.orders.serializers import CreateOrderSerializer, ListShortOrdersSerializer
+from OnlineShop.orders.serializers import CreateOrderSerializer, ListShortOrdersSerializer, RetrieveOrderSerializer, \
+    OrderProductSerializer
 from OnlineShop.settings import STRIPE_SECRET_KEY
 
 UserModel = get_user_model()
@@ -60,9 +61,30 @@ class ProceedPayment(GetTheUserFromTokenMixin, views.APIView):
         return Response({'client_secret': client_secret})
 
 
-class RetrieveShortOrdersView(GetTheUserFromTokenMixin, generics_views.ListCreateAPIView):
+class ListShortOrdersView(GetTheUserFromTokenMixin, generics_views.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = ListShortOrdersSerializer
     permission_classes = (IsAuthenticated, )
+
+
+class RetrieveOrderView(generics_views.RetrieveUpdateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = RetrieveOrderSerializer
+    permission_classes = (IsAuthenticated, )
+
+
+class RetrieveOrderProducts(generics_views.RetrieveUpdateAPIView):
+    queryset = Order.objects.prefetch_related('products').all()
+    serializer_class = OrderProductSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        order = Order.objects.prefetch_related('products').filter(pk=kwargs.get('pk')).get()
+        products = order.orderproducts_set.all()
+        serializer = self.get_serializer(products, many=True)
+        serializer_data = serializer.data
+        return Response(serializer_data)
+
+
 
 

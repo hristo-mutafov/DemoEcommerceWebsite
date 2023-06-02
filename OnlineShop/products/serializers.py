@@ -58,4 +58,10 @@ class CreateUpdateCategorySerializer(serializers.ModelSerializer):
         return {'massage': 'Saved Changes'}
 
 
+class RetrieveProductShortInformationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ('image', 'name', 'price')
+
+
 

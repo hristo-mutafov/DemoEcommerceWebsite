@@ -38,7 +38,6 @@ function updateDom(orders) {
         dateField.textContent = date
         const priceField = Array.from(document.querySelectorAll('#prder_price')).pop()
         priceField.textContent = `${price}lv`
-        const viewOrderButton = Array.from(document.querySelectorAll('#viewBtn')).pop()
         Array.from(ulWrapper.querySelectorAll('.list_item')).pop().id = order_number
 
     }
@@ -50,7 +49,7 @@ function attachButtonListeners() {
     const buttons = Array.from(ulWrapper.querySelectorAll('#viewBtn.btn'))
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
-            window.location.href = `../../../pages/profile/profile_orders.html?order=${button.parentNode.id}'`
+            window.location.href = `../../../pages/order/orderDetail.html?order=${button.parentNode.id}`
         })
     })
     

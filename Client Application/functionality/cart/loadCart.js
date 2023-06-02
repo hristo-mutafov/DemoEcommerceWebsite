@@ -4,22 +4,22 @@ import getDate from '../../functionality/modules/getDate.mjs';
 import editHeaderCountAndPrice from '../../functionality/modules/editHeaderCountAndPrice.mjs';
 
 const tbody = document.getElementById('tbody');
-const emptyCartSection = document.querySelector('#main.cart_page .empty_cart')
-const cartSection = document.querySelector('#main.cart_page .main_section')
+const emptyCartSection = document.querySelector('#main.cart_page .empty_cart');
+const cartSection = document.querySelector('#main.cart_page .main_section');
 const subtotalPriceField = document.querySelector(
     '.price_menu .subtotal_price_wrapper .subtotal'
 );
 const totalPriceField = document.querySelector(
     '.price_menu .total_price_wrapper .total'
 );
-const orderButton = document.getElementById('go_to_finish_btn')
+const orderButton = document.getElementById('go_to_finish_btn');
 const RETRIEVE_PRODUCTS_URL = 'http://127.0.0.1:8000/cart/products/';
 
 window.addEventListener('load', async () => {
     await loadProducts();
     orderButton.addEventListener('click', () => {
-        window.location.href = '../../pages/order/order.html'
-    })
+        window.location.href = '../../pages/order/order.html';
+    });
     const removeBtns = [...document.querySelectorAll('#remove_item_btn')];
     const decreaseProductCountButtons =
         document.querySelectorAll('#decrease_btn');
@@ -85,12 +85,12 @@ async function loadProducts() {
         TOTAL_PRICE += Number(price) * Number(productCount);
     }
     if (!jsonRes.length) {
-        emptyCartSection.classList.add('active')
-        cartSection.classList.add('disabled')
+        emptyCartSection.classList.add('active');
+        cartSection.classList.add('disabled');
     }
 
     subtotalPriceField.textContent =
-        totalPriceField.textContent = `${TOTAL_PRICE}lv.`;
+        totalPriceField.textContent = `${TOTAL_PRICE.toFixed(2)}lv.`;
 }
 
 async function removeProduct() {
@@ -160,7 +160,7 @@ async function decreaseQuantity() {
                     parentTr.querySelector('#single_price_sec #smallPrice')
                         .textContent
             );
-        editHeaderCountAndPrice(productPrice, true)
+        editHeaderCountAndPrice(productPrice, true);
         window.location.reload();
     }
 }
@@ -179,14 +179,13 @@ async function increseQuantity() {
     }
     const productPrice =
         Number(
-            parentTr.querySelector('#single_price_sec #bigPrice')
-                .textContent
+            parentTr.querySelector('#single_price_sec #bigPrice').textContent
         ) +
         Number(
             '0.' +
                 parentTr.querySelector('#single_price_sec #smallPrice')
                     .textContent
         );
-    editHeaderCountAndPrice(productPrice,)
+    editHeaderCountAndPrice(productPrice);
     window.location.reload();
 }

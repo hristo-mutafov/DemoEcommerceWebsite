@@ -9,8 +9,8 @@
     </head>
     <body>
         <script type="module" defer src="../../functionality/homePageFunc/homePageOnLoad.js"></script>
-        <script type="module" defer src="../../functionality/profile/orderSettings/loadOrders.js"></script>
         <script defer src="../../functionality/profile/mainProfileManages.js"></script>
+        <script type="module" defer src="../../functionality/order/loadOrderData.js"></script>
         <header class="header">
             <div class="header_wrapper">
                 <h1 class="logo"><a id="logo" href="/">MySite</a></h1>
@@ -59,15 +59,64 @@
                     </ul>
                 </aside>
 
-                <section class="settings">
-                    <div class="credentials">
-                        <h2 class="heading">
-                            My Orders
-                        </h2>
-                        <ul id="order_wrapper" role="list">
-                        </ul>
-                    </div>
+                <section class="order_details">
+                    <section class="section">
+                        <div class="field">
+                            <div class="label">
+                                <i class="far fa-clock"></i>
+                                <p>Date</p>
+                            </div>
+                            <p id="dateField" class="field_data"></p>
+                        </div>
+    
+                        <div class="field">
+                            <div class="label">
+                                <i class="fab fa-slack-hash"></i>
+                                <p>Order Number</p>
+                            </div>
+                            <p id="orderNumber" class="field_data"></p>
+                        </div>
+    
+                        <div class="field">
+                            <div class="label">
+                                <i class="fas fa-money-bill-alt"></i>
+                                <p>Price</p>
+                            </div>
+                            <p id="orderPrice" class="field_data"></p>
+                        </div>
+    
+                        <div class="field">
+                            <div class="label">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Address</p>
+                            </div>
+                            <p id="orderAddress" class="field_data"></p>
+                        </div>
+                    </section>
+                    <section id="productWrapper" class="section">
+                    </section>
+                    <section class="section">
+                        <div class="field">
+                            <div class="label">
+                                <i class="fas fa-wallet"></i>
+                                <p>Payment Method</p>
+                            </div>
+                            <p id="orderPaymentMethod" class="type_payment"></p>
+                        </div>
+                    </section>
+                    <section class="section">
+                        <div class="field">
+                            <div class="label">
+                                <i class="fas fa-money-bill-alt"></i>
+                                <p>Price</p>
+                            </div>
+                            <p id="orderPrice2" class="type_payment"></p>
+                        </div>
+                    </section>
+
+                    
                 </section>
+                
             </section>
             
            

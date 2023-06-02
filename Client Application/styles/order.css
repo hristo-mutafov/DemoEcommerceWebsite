@@ -155,6 +155,59 @@
     justify-content: center;
 }
 
+.orders_page .order_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    padding: 20px 40px;
+    border: 1px solid lightgrey;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.orders_page .order_details .section:not(:last-child) {
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+
+
+.orders_page .order_details .field {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orders_page .order_details .field .label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.orders_page .order_details .product_field {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.orders_page .order_details .product_field img {
+    width: 100px;
+    height: 122px;
+    object-fit: cover;
+}
+
+.orders_page .order_details .product_field .product_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.orders_page .order_details .product_field img .title {
+    font-weight: 600;
+    font-size: 18px;
+}
+
 
 
 @media screen and (max-width: 800px) {
@@ -174,7 +227,6 @@
     }
 }
 
-/*  */
 
 @media screen and (max-width: 640px) {
     .finished_order_page#main h1 {
@@ -184,6 +236,22 @@
     .finished_order_page#main a {
         padding: 4px 10px;
         font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .orders_page .order_details {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    .orders_page .profile_settings {
+        padding: 20px 10px;
+    }
+
+    .orders_page .order_details .product_field img {
+        width: 60px;
+        height: 80px;
     }
 }
 
@@ -199,7 +267,6 @@
     
 }
 
-/*  */
 @media screen and (max-width: 434px) {
     .finished_order_page#main {
         padding:100px 20px;
@@ -212,6 +279,20 @@
     .finished_order_page#main a {
         padding: 4px 10px;
         font-size: 10px;
+    }
+
+    .orders_page .order_details {
+        font-size: 12px;
+        padding: 10px 15px;
+    }
+
+    .orders_page .profile_settings {
+        padding: 20px 10px;
+    }
+
+    .orders_page .order_details .product_field img {
+        width: 40px;
+        height: 60px;
     }
 }
 
