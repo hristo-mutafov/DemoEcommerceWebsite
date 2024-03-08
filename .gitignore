@@ -89,6 +89,7 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
+venv
 
 Client Application/config.json
 
