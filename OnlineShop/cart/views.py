@@ -32,5 +32,9 @@ class DeleteProductFromCartView(GetTheUserFromTokenMixin, generics_views.UpdateA
 class ListCartProductsView(GetTheUserFromTokenMixin, generics_views.ListCreateAPIView):
     queryset = CartProducts.objects.all()
     serializer_class = ListCartProductsSerializer
+    permission_classes = (IsAuthenticated,)
     filter_param = 'cart__user_id'
 
+    def get_queryset(self):
+        user_id = self.get_user_id(self.request)
+        return super().get_queryset().filter(**{self.filter_param: user_id})

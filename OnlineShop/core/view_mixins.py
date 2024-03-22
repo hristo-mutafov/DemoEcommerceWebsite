@@ -14,7 +14,7 @@ class GetTheUserFromTokenMixin:
 
     @staticmethod
     def get_user_id(request):
-        token = request.headers.get('Authorization', None).split(' ')[1]
+        token = request.headers.get('authorization', None).split(' ')[1]
         try:
             validated_token = JWTAuthentication().get_validated_token(token)
             user_id = validated_token['user_id']
