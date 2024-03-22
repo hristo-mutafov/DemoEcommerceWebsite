@@ -32,7 +32,8 @@ class LoginView(views.APIView):
                 access_token = AccessToken.for_user(user)
                 return Response({
                     'refresh_token': str(refresh_token),
-                    'access_token': str(access_token)
+                    'access_token': str(access_token),
+                    'is_staff': user.is_staff
                 })
             else:
                 raise Http404
