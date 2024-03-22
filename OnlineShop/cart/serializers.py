@@ -5,18 +5,23 @@ from rest_framework import serializers
 from OnlineShop.cart.models import Cart, CartProducts
 from OnlineShop.products.models import Product
 from OnlineShop.products.serializers import RetrieveProductSerializer
+from OnlineShop.core.view_mixins import GetTheUserFromTokenMixin
 
 
-class AddToCartSerializer(serializers.ModelSerializer):
+class AddToCartSerializer(GetTheUserFromTokenMixin, serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = ('products', )
 
     def update(self, instance, validated_data):
+        user = GetTheUserFromTokenMixin.get_user_id(self.context['request'])
+        cart = get_object_or_404(Cart, user=user)
+
         product_id = self.context['view'].kwargs.get('product_pk')
         product = get_object_or_404(Product, pk=product_id)
         if product in instance.products.all():
-            cart_obj = CartProducts.objects.filter(product=product).get()
+            #---------------
+            cart_obj = CartProducts.objects.filter(product=product, cart=cart).get()
             cart_obj.count += 1
             cart_obj.save()
         else:
@@ -33,9 +38,13 @@ class RemoveFromCartSerializer(serializers.ModelSerializer):
         fields = ('products', )
 
     def update(self, instance, validated_data):
+        user = GetTheUserFromTokenMixin.get_user_id(self.context['request'])
+        cart = get_object_or_404(Cart, user=user)
+
         product_id = self.context['view'].kwargs.get('product_pk')
         product = get_object_or_404(Product, pk=product_id)
-        cart_obj = get_object_or_404(CartProducts, product=product)
+        
+        cart_obj = get_object_or_404(CartProducts, product=product, cart=cart)
         if product in instance.products.all() and cart_obj.count > 1:
             cart_obj.count -= 1
             cart_obj.save()
@@ -69,7 +78,4 @@ class ListCartProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartProducts
         fields = ('product', 'count')
-
-
-
 
